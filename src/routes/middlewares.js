@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const logger = require("../config/logger");
 const headerErrorCode = require("../headerErrorCode");
 
-exports.verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   logger.info("verifyToken access");
   let response = {
     header: {},
@@ -23,3 +23,5 @@ exports.verifyToken = (req, res, next) => {
     return res.status(400).json(response);
   }
 };
+
+module.exports = { verifyToken };

@@ -23,15 +23,12 @@ app.use((req, res) => {
     header: {},
   };
 
-  try {
-  } catch (error) {
-    logger.info("accessIP : " + ip);
-    response.header = headerErrorCode.httpError;
-    response.header.receiveMethodAndUrl = `${req.method} ${req.url}`;
+  logger.info("accessIP : " + ip);
+  response.header = headerErrorCode.httpError;
+  response.header.receiveMethodAndUrl = `${req.method} ${req.url}`;
 
-    logger.error(`app.js method url error, ${req.method} ${req.url}`);
-    res.status(404).json(response);
-  }
+  logger.error(`app.js method url error, ${req.method} ${req.url}`);
+  res.json(response);
 });
 
 module.exports = app;

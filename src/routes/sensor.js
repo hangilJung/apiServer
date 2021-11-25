@@ -142,6 +142,8 @@ router.post("/daily", async (req, res) => {
     header: {},
   };
 
+  console.log(res.body);
+
   let sql = `
     select
       c.precipitation,  
@@ -1014,34 +1016,6 @@ router.post("/risk", async (req, res) => {
 //     res.status(400).json(response);
 //   }
 // });
-
-router.post("/insert", async (req, res) => {
-  logger.info("/sensor/insert access");
-  const { place_id, precipitation, water_level, temperature, humidity } =
-    req.body.dataList;
-  let response = {
-    header: {},
-  };
-
-  try {
-    const databaseOnSaveResult = await pool.query(
-      "insert into sensor_data (place_id, precipitation, water_level, temperature, humidity) values (?, ?, ?, ?, ?)", //여러 PLC 에서 값이 들어오면 수정해야함
-      [place_id, precipitation, water_level, temperature, humidity]
-    );
-    if (databaseOnSaveResult[0].affectedRows > 0) {
-      response.header = headerErrorCode.normalService;
-      res.json(response);
-    } else {
-      response.header = headerErrorCode.invalidRequestParameterError;
-      res.status(400).json(response);
-    }
-  } catch (error) {
-    logger.error("/sensor/insert error message:", error);
-    console.log(error);
-    response.header = headerErrorCode.noDataError;
-    res.status(400).json(response);
-  }
-});
 
 // router.post("/year", async (req, res) => {
 //   logger.info("/sensor/month access");

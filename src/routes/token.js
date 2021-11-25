@@ -28,7 +28,7 @@ router.post("/v1", async (req, res) => {
         },
         process.env.JWT_SECRET,
         {
-          expiresIn: "2h",
+          expiresIn: "20s",
           issuer: "coporation sooin",
         }
       );
